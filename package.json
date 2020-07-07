@@ -1,0 +1,66 @@
+{
+	"name": "vscode-quick-open-related-files",
+	"displayName": "Quick Open Related Files",
+	"description": "Instantly jump to related files using the Quick Open menu",
+	"version": "1.0.0",
+	"publisher": "carldr",
+	"engines": {
+		"vscode": "^1.15.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:quickOpenRelatedFiles.show"
+	],
+	"main": "./src/extension",
+	"contributes": {
+		"configuration": {
+			"type": "object",
+			"title": "quick-open-related-files configuration",
+			"properties": {
+				"quickOpenRelatedFiles.directoryLevelsToPreserve": {
+					"type": "number",
+					"default": 0,
+					"description": "Number of directory levels in the path to preserve"
+				},
+				"quickOpenRelatedFiles.patternsToMap": {
+					"type": "array",
+					"default": [
+						{
+							"from": "def",
+							"to": "template"
+						}
+					],
+					"description": "Extensions which map onto another extension"
+				}
+			}
+		},
+		"commands": [
+			{
+				"command": "quickOpenRelatedFiles.show",
+				"title": "Quick Open Related Files"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "quickOpenRelatedFiles.show",
+				"key": "ctrl+.",
+				"mac": "cmd+.",
+				"when": "editorTextFocus"
+			}
+		]
+	},
+	"scripts": {
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"test": "node ./node_modules/vscode/bin/test"
+	},
+	"devDependencies": {
+		"typescript": "^2.0.3",
+		"vscode": "^1.0.0",
+		"mocha": "^2.3.3",
+		"eslint": "^3.6.0",
+		"@types/node": "^6.0.40",
+		"@types/mocha": "^2.2.32"
+	}
+}
