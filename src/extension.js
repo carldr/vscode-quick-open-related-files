@@ -1,8 +1,6 @@
 const path = require('path');
 const vscode = require('vscode');
 
-var output = vscode.window.createOutputChannel( "my test" );
-
 function stripWorkspaceFolder(currentFilename, workspaceFolder) {
     if (workspaceFolder && currentFilename.indexOf(workspaceFolder) === 0) {
         return currentFilename.slice(workspaceFolder.length);
@@ -21,10 +19,7 @@ function stripExcessDirectoryLevels(currentFilename, separator, directoryLevelsT
 
 function mapExtensions(currentFilename, separator, patterns) {
 	const filenameParts = currentFilename.split(separator);
-
 	let basename = filenameParts[filenameParts.length - 1];
-
-	output.appendLine( basename );
 
 	if (patterns) {
 				var found = false;
@@ -33,21 +28,12 @@ function mapExtensions(currentFilename, separator, patterns) {
 					let from_ext = pattern.from;
 					let to_ext = pattern.to;
 
-					output.appendLine( from_ext );
-					output.appendLine( to_ext );
-					output.appendLine( "base: " + path.basename( basename ) );
-					output.appendLine( "base ext: " + path.basename( basename, from_ext ) );
-					output.appendLine( "ext: " + path.extname( basename ) );
-
 					if ( found == false && path.extname( basename ) == "." + from_ext ) {
 							currentFilename = path.basename( basename, from_ext ) + to_ext;
-							output.appendLine( "O: " + currentFilename );
 							found = true;
 						}
         });
     }
-
-		output.appendLine( "R: " + currentFilename );
 
     return currentFilename;
 }
